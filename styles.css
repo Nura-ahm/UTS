@@ -1,0 +1,19 @@
+/* A few touches on top of Bootstrap. */
+
+body {
+  min-height: 100vh;
+}
+
+.card {
+  border: 1px solid rgba(0, 0, 0, .08);
+  border-radius: 12px;
+}
+
+#talent-list .list-group-item {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#talent-list button.btn-link:hover {
+  text-decoration: underline !important;
+}
