@@ -114,7 +114,7 @@
 
 <!-- ===================== counters ===================== -->
 <section class="counters">
-  <div class="wrap counter-grid">
+  <div class="wrap counter-grid" aria-live="polite">
     <div class="counter"><span class="num" id="stat-total">0</span><span class="lbl">Acts registered</span></div>
     <div class="counter"><span class="num" id="stat-remaining">48</span><span class="lbl">Slots remaining</span></div>
     <div class="counter"><span class="num" id="stat-performers">0</span><span class="lbl">Performers on stage</span></div>
@@ -161,42 +161,42 @@
             <div class="row">
               <div class="field">
                 <label for="full-name">Full name <span class="req">*</span></label>
-                <input type="text" id="full-name" name="fullName" autocomplete="name"
+                <input type="text" id="full-name" aria-describedby="hint-full-name" name="fullName" autocomplete="name"
                        placeholder="e.g. Amina Yusuf">
-                <p class="hint" data-hint-for="full-name"></p>
+                <p class="hint" id="hint-full-name" data-hint-for="full-name"></p>
               </div>
 
               <div class="field">
                 <label for="student-id">Student ID <span class="req">*</span></label>
-                <input type="text" id="student-id" name="studentId" inputmode="numeric"
+                <input type="text" id="student-id" aria-describedby="hint-student-id" name="studentId"
                        placeholder="e.g. B2010457" maxlength="12">
-                <p class="hint" data-hint-for="student-id"></p>
+                <p class="hint" id="hint-student-id" data-hint-for="student-id"></p>
               </div>
             </div>
 
             <div class="row">
               <div class="field">
                 <label for="faculty">Faculty <span class="req">*</span></label>
-                <select id="faculty" name="faculty">
+                <select id="faculty" aria-describedby="hint-faculty" name="faculty">
                   <option value="">Choose your faculty…</option>
                 </select>
-                <p class="hint" data-hint-for="faculty"></p>
+                <p class="hint" id="hint-faculty" data-hint-for="faculty"></p>
               </div>
 
               <div class="field">
                 <label for="email">University email <span class="req">*</span></label>
-                <input type="email" id="email" name="email" autocomplete="email"
+                <input type="email" id="email" aria-describedby="hint-email" name="email" autocomplete="email"
                        placeholder="you@stu.aydin.edu.tr">
-                <p class="hint" data-hint-for="email"></p>
+                <p class="hint" id="hint-email" data-hint-for="email"></p>
               </div>
             </div>
 
             <div class="row">
               <div class="field">
                 <label for="phone">Mobile <span class="opt">optional</span></label>
-                <input type="tel" id="phone" name="phone" autocomplete="tel"
+                <input type="tel" id="phone" aria-describedby="hint-phone" name="phone" autocomplete="tel"
                        placeholder="+90 5xx xxx xx xx">
-                <p class="hint" data-hint-for="phone"></p>
+                <p class="hint" id="hint-phone" data-hint-for="phone"></p>
               </div>
               <div class="field"></div>
             </div>
@@ -208,31 +208,32 @@
             <div class="row">
               <div class="field">
                 <label for="category">Category <span class="req">*</span></label>
-                <select id="category" name="category">
+                <select id="category" aria-describedby="hint-category" name="category">
                   <option value="">Choose a category…</option>
                 </select>
-                <p class="hint" data-hint-for="category"></p>
+                <p class="hint" id="hint-category" data-hint-for="category"></p>
               </div>
 
               <div class="field">
                 <label for="act-title">Act title <span class="req">*</span></label>
-                <input type="text" id="act-title" name="actTitle"
+                <input type="text" id="act-title" aria-describedby="hint-act-title" name="actTitle"
                        placeholder="e.g. Nocturne in E minor" maxlength="60">
-                <p class="hint" data-hint-for="act-title"></p>
+                <p class="hint" id="hint-act-title" data-hint-for="act-title"></p>
               </div>
             </div>
 
             <div class="row">
               <div class="field">
                 <label for="performers">Performers on stage <span class="req">*</span></label>
-                <input type="number" id="performers" name="performers" min="1" max="12" value="1">
-                <p class="hint" data-hint-for="performers"></p>
+                <input type="number" id="performers" aria-describedby="hint-performers" name="performers" min="1" max="12" value="1">
+                <p class="hint" id="hint-performers" data-hint-for="performers"></p>
               </div>
 
               <div class="field">
                 <label for="duration">Duration in minutes <span class="req">*</span></label>
-                <input type="number" id="duration" name="duration" min="1" max="5" step="1" value="3">
-                <p class="hint" data-hint-for="duration">Five minutes is the hard limit.</p>
+                <input type="number" id="duration" aria-describedby="hint-duration" name="duration" min="1" max="5" step="1" value="3">
+                <p class="hint" id="hint-duration" data-hint-for="duration"
+                   data-default="Five minutes is the hard limit.">Five minutes is the hard limit.</p>
               </div>
             </div>
 
@@ -249,10 +250,10 @@
             </label>
 
             <label class="check">
-              <input type="checkbox" id="consent" name="consent">
+              <input type="checkbox" id="consent" aria-describedby="hint-consent" name="consent">
               <span>I've read the rules and agree to be filmed for the Student Union channel <span class="req">*</span></span>
             </label>
-            <p class="hint" data-hint-for="consent"></p>
+            <p class="hint" id="hint-consent" data-hint-for="consent"></p>
           </fieldset>
 
           <div class="form-actions">
