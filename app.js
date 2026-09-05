@@ -71,7 +71,17 @@ const Store = {
     try {
       const raw = window.localStorage.getItem(this.KEY);
       const parsed = raw ? JSON.parse(raw) : [];
-      return Array.isArray(parsed) ? parsed : [];
+      if (!Array.isArray(parsed)) return [];
+
+      // Check the shape of each entry, not just the container. One malformed
+      // record — hand-edited storage, a half-written value — would otherwise
+      // throw inside the sorters and the line-up render, and because storage is
+      // re-read on every load the page would stay broken for good.
+      return parsed.filter((entry) => entry
+        && typeof entry.reference === 'string'
+        && typeof entry.studentId === 'string'
+        && typeof entry.fullName === 'string'
+        && typeof entry.registeredAt === 'string');
     } catch (error) {
       console.warn('Could not read saved entries:', error.message);
       return [];
@@ -97,14 +107,15 @@ const State = {
   category: 'all',
   sort: 'newest',
 
+  /** Returns false when the entry could not be persisted, so callers can say so. */
   add(entry) {
     this.entries.push(entry);
-    Store.save(this.entries);
+    return Store.save(this.entries);
   },
 
   remove(reference) {
     this.entries = this.entries.filter((entry) => entry.reference !== reference);
-    Store.save(this.entries);
+    return Store.save(this.entries);
   },
 
   /** How many acts a category already holds. */
@@ -443,7 +454,10 @@ const Csv = {
     document.body.append(link);
     link.click();
     link.remove();
-    URL.revokeObjectURL(url);
+
+    // Revoking on the same tick can cancel the download in Firefox and Safari,
+    // which read the blob after the click handler returns.
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   },
 };
 
@@ -526,12 +540,23 @@ form.addEventListener('submit', (event) => {
     registeredAt: new Date().toISOString(),
   };
 
-  State.add(entry);
+  const saved = State.add(entry);
   Render.everything();
   Render.ticket(entry);
-  Render.toast(`You're in — reference ${entry.reference}.`);
+  Render.toast(saved
+    ? `You're in — reference ${entry.reference}.`
+    : `Registered as ${entry.reference}, but this browser would not save it — write it down.`);
 
   form.reset();
+});
+
+/*
+ * Reset clears the values but not what the validation added on top of them, so
+ * the error styling, the messages and the character counter are cleared here.
+ * The submit handler triggers this too, by calling form.reset() above.
+ */
+form.addEventListener('reset', () => {
+  for (const inputId of Object.values(FIELD_IDS)) Render.fieldError(inputId, null);
   document.querySelector('#notes-count').textContent = '0';
 });
 
