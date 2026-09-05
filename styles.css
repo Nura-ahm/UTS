@@ -198,7 +198,14 @@ h1 .outline {
 .is-open .cat-tag { background: rgba(31,138,91,.12); color: var(--green); }
 .is-filling .cat-tag { background: rgba(184,115,10,.14); color: var(--amber); }
 .is-full .cat-tag { background: rgba(179,38,30,.12); color: var(--red); }
-.is-full { opacity: .72; }
+
+/*
+ * A full category is dimmed through its icon alone, not the whole card. Fading
+ * the card took the description and the "Full" tag to roughly 3.1:1 against the
+ * background — below the 4.5:1 the rest of the page holds to, and worst for
+ * exactly the card someone needs to read carefully.
+ */
+.is-full .cat-icon { opacity: .6; }
 
 .cat-card h3 { margin: 0 0 6px; font-size: 1.16rem; }
 .cat-card p { margin: 0 0 16px; color: var(--muted); font-size: .93rem; }
